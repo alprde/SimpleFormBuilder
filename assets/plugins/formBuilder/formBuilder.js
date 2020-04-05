@@ -1,10 +1,13 @@
 (function($) {
+    // Formbuilderın çalışmasını sağlayan ana fonksiyon.
+    // Bu fonksiyon sayesinde gereken tüm bileşenler çağılıp sayfaya dahil ediliyor.
     $.fn.formBuilder = function (options) {
         $(this).createElementsContainer()
         $(this).createPropertiesContainer()
         $(this).find('#'+settings.propertiesContainer.id).createPropertiesTabs()
     }
 
+    // Kodlama standardına uymayan yazıları uygun standarda çeviren fonsiyon
     String.prototype.convertToEnglish = function () {
         return this.replace(/Ğ/gim, "g")
             .replace(/ğ/gim, "g")
@@ -27,18 +30,21 @@
 
     };
 
+    // Oluşturulmuş elementlerin listeleneceği kapsayıcı alanı oluşturan fonksiyon
     $.fn.createElementsContainer = function () {
         const elementsContainer = '<div id="'+settings.elementsContainer.id+'"></div>'
         $(this).append(elementsContainer)
         const classes = settings.elementsContainer.classes.map(item => $('#'+settings.elementsContainer.id).addClass(item))
     }
 
+    // Oluşturabilinecek elementlerin listeleneceği ve element özelliklerinin listeleneceği kapsayıcı alanı oluşturan fonksiyon
     $.fn.createPropertiesContainer = function () {
         const propertiesContainer = '<div id="'+settings.propertiesContainer.id+'"></div>'
         $(this).append(propertiesContainer)
         const classes = settings.propertiesContainer.classes.map(item => $('#'+settings.propertiesContainer.id).addClass(item))
     }
 
+    // Elementler listesinin ve özellikler listesinin ayrılabilmesi için tab menü oluşturan fonksiyon
     $.fn.createPropertiesTabs = function () {
         const tabHeader = '<ul class="nav nav-tabs"></ul>'
         const tabContent = '<div class="tab-content"></div>'
@@ -54,6 +60,7 @@
         $(this).find('.tab-content').find('.tab-pane:first').addClass('in').addClass('active')
     }
 
+    // Formbuilder ayarlarını belirlediğimiz kısım
     const prefix = 'sfb_'
     const settings = {
         elementsContainer: {
