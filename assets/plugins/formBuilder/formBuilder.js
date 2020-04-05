@@ -5,6 +5,7 @@
         $(this).createElementsContainer()
         $(this).createPropertiesContainer()
         $(this).find('#'+settings.propertiesContainer.id).createPropertiesTabs()
+        $(this).find('#'+settings.propertiesContainer.id).find('.tab-content').find('#'+settings.propertiesContainer.propertiesTabs.tabs[0].convertToEnglish()).createCreatableElements()
     }
 
     // Kodlama standardına uymayan yazıları uygun standarda çeviren fonsiyon
@@ -60,6 +61,16 @@
         $(this).find('.tab-content').find('.tab-pane:first').addClass('in').addClass('active')
     }
 
+    $.fn.createCreatableElements = function () {
+        const elementList = '<ul class="list-group"></ul>'
+        $(this).append(elementList)
+        const elements = settings.propertiesContainer.elements.map(item => {
+            console.log(item)
+            const element = '<li class="list-group-item">'+item.name+'</li>'
+            $(this).find('.list-group').append(element)
+        })
+    }
+
     // Formbuilder ayarlarını belirlediğimiz kısım
     const prefix = 'sfb_'
     const settings = {
@@ -72,7 +83,69 @@
             classes: [prefix+'propertiesContainer', 'col-md-4'],
             propertiesTabs: {
                 tabs: ['Elementler', 'Özellikler']
-            }
+            },
+            elements: [
+                {
+                    name: 'input',
+                    types: ['text', 'password', 'email', 'date', 'number'],
+                    attributes: [
+                        {
+                            name: 'required',
+                            value: false
+                        },
+                        {
+                            name: 'min',
+                            value: ''
+                        },
+                        {
+                            name: 'max',
+                            value: ''
+                        },
+                        {
+                            name: 'name',
+                            value: ''
+                        }
+                    ]
+                },
+                {
+                    name: 'select',
+                    attributes: [
+                        {
+                            name: 'required',
+                            value: false
+                        },
+                        {
+                            name: 'multiple',
+                            value: false
+                        },
+                        {
+                            name: 'name',
+                            value: ''
+                        }
+                    ]
+                },
+                {
+                    name: 'textarea',
+                    attributes: [
+                        {
+                            name: 'required',
+                            value: false
+                        },
+                        {
+                            name: 'cols',
+                            value: 30
+                        },
+                        {
+                            name: 'rows',
+                            value: 10
+                        },
+                        {
+                            name: 'name',
+                            value: ''
+                        }
+                    ]
+                }
+            ]
         }
     }
 }(jQuery))
