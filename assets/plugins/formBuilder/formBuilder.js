@@ -2,10 +2,10 @@
     // Formbuilderın çalışmasını sağlayan ana fonksiyon.
     // Bu fonksiyon sayesinde gereken tüm bileşenler çağılıp sayfaya dahil ediliyor.
     $.fn.formBuilder = function (options) {
-        $(this).createElementsContainer()
-        $(this).createPropertiesContainer()
-        $(this).find('#'+settings.propertiesContainer.id).createPropertiesTabs()
-        $(this).find('#'+settings.propertiesContainer.id).find('.tab-content').find('#'+settings.propertiesContainer.propertiesTabs.tabs[0].convertToEnglish()).createCreatableElements()
+        $(this).createElementsContainer() //forma eklenen elemntlerin listeleneceği kapsayıcıyı oluştur.
+        $(this).createPropertiesContainer() //forma eklenebilecek elementlerin listeleneceği ve özelliklerini ayarlanabileceği kapsayıcıyı oluştur.
+        $(this).find('#'+settings.propertiesContainer.id).createPropertiesTabs() //Elementler ve özellikler tablarını oluştur.
+        $(this).find('#'+settings.propertiesContainer.id).find('.tab-content').find('#'+settings.propertiesContainer.propertiesTabs.tabs[0].convertToEnglish()).createCreatableElements() //elemntler tabının içine forma eklenebilecek elementleri listele
     }
 
     // Kodlama standardına uymayan yazıları uygun standarda çeviren fonsiyon
@@ -86,9 +86,14 @@
             },
             elements: [
                 {
-                    name: 'input',
-                    types: ['text', 'password', 'email', 'date', 'number'],
+                    tag: 'input',
+                    name: 'Kısa Yazı',
+                    type: 'text',
                     attributes: [
+                        {
+                            name: 'name',
+                            value: ''
+                        },
                         {
                             name: 'required',
                             value: false
@@ -101,15 +106,63 @@
                             name: 'max',
                             value: ''
                         },
-                        {
-                            name: 'name',
-                            value: ''
-                        }
                     ]
                 },
                 {
-                    name: 'select',
+                    tag: 'input',
+                    name: 'Tarih',
+                    type: 'date',
                     attributes: [
+                        {
+                            name: 'name',
+                            value: ''
+                        },
+                        {
+                            name: 'required',
+                            value: false
+                        },
+                        {
+                            name: 'min',
+                            value: ''
+                        },
+                        {
+                            name: 'max',
+                            value: ''
+                        },
+                    ]
+                },
+                {
+                    tag: 'input',
+                    name: 'Mail',
+                    type: 'email',
+                    attributes: [
+                        {
+                            name: 'name',
+                            value: ''
+                        },
+                        {
+                            name: 'required',
+                            value: false
+                        },
+                        {
+                            name: 'min',
+                            value: ''
+                        },
+                        {
+                            name: 'max',
+                            value: ''
+                        },
+                    ]
+                },
+                {
+                    tag: 'select',
+                    name: 'Tek Seçim',
+                    type: '',
+                    attributes: [
+                        {
+                            name: 'name',
+                            value: ''
+                        },
                         {
                             name: 'required',
                             value: false
@@ -117,34 +170,47 @@
                         {
                             name: 'multiple',
                             value: false
-                        },
-                        {
-                            name: 'name',
-                            value: ''
                         }
                     ]
                 },
                 {
-                    name: 'textarea',
+                    tag: 'select',
+                    name: 'Çoklu Seçim',
+                    type: '',
                     attributes: [
+                        {
+                            name: 'name',
+                            value: ''
+                        },
                         {
                             name: 'required',
                             value: false
                         },
                         {
-                            name: 'cols',
-                            value: 30
-                        },
-                        {
-                            name: 'rows',
-                            value: 10
-                        },
+                            name: 'multiple',
+                            value: true
+                        }
+                    ]
+                },
+                {
+                    tag: 'textarea',
+                    name: 'Uzun Yazı',
+                    type: '',
+                    attributes: [
                         {
                             name: 'name',
                             value: ''
+                        },
+                        {
+                            name: 'required',
+                            value: false
+                        },
+                        {
+                            name: 'multiple',
+                            value: true
                         }
                     ]
-                }
+                },
             ]
         }
     }
