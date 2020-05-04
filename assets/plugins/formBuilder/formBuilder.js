@@ -6,6 +6,15 @@
         $(this).createPropertiesContainer() //forma eklenebilecek elementlerin listeleneceği ve özelliklerini ayarlanabileceği kapsayıcıyı oluştur.
         $(this).find('#'+settings.propertiesContainer.id).createPropertiesTabs() //Elementler ve özellikler tablarını oluştur.
         $(this).find('#'+settings.propertiesContainer.id).find('.tab-content').find('#'+settings.propertiesContainer.propertiesTabs.tabs[0].convertToEnglish()).createCreatableElements() //elemntler tabının içine forma eklenebilecek elementleri listele
+    
+        // Elementler listesindeki elementlere tıklayınca çalışacak event
+        $('body').on('click', '#'+settings.propertiesContainer.id+' #'+settings.propertiesContainer.propertiesTabs.tabs[0].convertToEnglish()+' .list-group-item', function(){
+            const elementIndex = $(this).index(); //tıklanılan elementin sırasını al
+            const element = settings.propertiesContainer.elements[elementIndex] // aldığın element sırası ile jsonın içinden elementi bul
+            const elementHtml = '<li class="list-group-item">'+element.name+'</li>' //bir tane liste itemi oluştur ve içine element adını yaz
+            
+            $('#'+settings.elementsContainer.id+' .list-group').append(elementHtml) //oluşturduğun liste itemini form listesine ekle
+        });
     }
 
     // Kodlama standardına uymayan yazıları uygun standarda çeviren fonsiyon
@@ -33,7 +42,7 @@
 
     // Oluşturulmuş elementlerin listeleneceği kapsayıcı alanı oluşturan fonksiyon
     $.fn.createElementsContainer = function () {
-        const elementsContainer = '<div id="'+settings.elementsContainer.id+'"></div>'
+        const elementsContainer = '<div id="'+settings.elementsContainer.id+'"><ul class="list-group"></ul></div>'
         $(this).append(elementsContainer)
         const classes = settings.elementsContainer.classes.map(item => $('#'+settings.elementsContainer.id).addClass(item))
     }
